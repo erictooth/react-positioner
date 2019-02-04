@@ -1,0 +1,60 @@
+{
+  "name": "react-positioner",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/Positioner.cjs.js",
+  "module": "dist/Positioner.es.js",
+  "keywords": [
+    "positioning",
+    "tooltip",
+    "popup",
+    "popover"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "rollup -c rollup.config.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://erictooth@github.com/erictooth/react-positioner.git"
+  },
+  "author": "Eric Mantooth",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/erictooth/react-positioner/issues"
+  },
+  "homepage": "https://github.com/erictooth/react-positioner#readme",
+  "devDependencies": {
+    "@babel/core": "^7.1.0",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^9.0.0",
+    "eslint": "^5.6.0",
+    "eslint-config-prettier": "^3.0.1",
+    "eslint-plugin-flowtype": "^2.50.1",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^21.22.0",
+    "eslint-plugin-prettier": "^2.6.2",
+    "eslint-plugin-react": "^7.11.1",
+    "flow-bin": "^0.81.0",
+    "flow-copy-source": "^2.0.2",
+    "flow-coverage-report": "^0.6.0",
+    "prettier": "^1.14.3",
+    "react": "16.8.0-alpha.1",
+    "rollup": "^0.66.1",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-commonjs": "^9.1.8",
+    "rollup-plugin-json": "^3.1.0",
+    "rollup-plugin-node-resolve": "^3.4.0"
+  },
+  "peerDependencies": {
+    "react": "16.8.0-alpha.1"
+  }
+}
