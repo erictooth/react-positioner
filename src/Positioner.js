@@ -93,7 +93,7 @@ type Props = {
     position: PositionEnum,
 
     /**
-     * The distance from the target container in pixels.
+     * The distance from the target element in pixels.
      */
     targetOffset: number,
 
