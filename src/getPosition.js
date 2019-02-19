@@ -1,7 +1,6 @@
-/**
- * https://github.com/segmentio/evergreen/blob/master/src/positioner/src/getPosition.js
- */
-export const Position = {
+// @flow
+
+export type PositionEnum = {|
     TOP: "top",
     TOP_LEFT: "top-left",
     TOP_RIGHT: "top-right",
@@ -10,6 +9,39 @@ export const Position = {
     BOTTOM_RIGHT: "bottom-right",
     LEFT: "left",
     RIGHT: "right",
+|};
+
+/**
+ * https://github.com/segmentio/evergreen/blob/master/src/positioner/src/getPosition.js
+ */
+export const Position: PositionEnum = {
+    TOP: "top",
+    TOP_LEFT: "top-left",
+    TOP_RIGHT: "top-right",
+    BOTTOM: "bottom",
+    BOTTOM_LEFT: "bottom-left",
+    BOTTOM_RIGHT: "bottom-right",
+    LEFT: "left",
+    RIGHT: "right",
+};
+
+type Dimensions = {|
+    width: number,
+    height: number,
+|};
+
+type PositionObject = {|
+    left: number,
+    top: number,
+|};
+
+type Rect = {
+    width: number,
+    height: number,
+    left: number,
+    top: number,
+    right: number,
+    bottom: number,
 };
 
 /**
@@ -22,7 +54,7 @@ export const Position = {
  * @param {Number} position.top
  * @return {Object} Rect { width, height, left, top, right, bottom }
  */
-const makeRect = ({ width, height }, { left, top }) => {
+const makeRect = ({ width, height }: Dimensions, { left, top }: PositionObject): Rect => {
     const ceiledLeft = Math.ceil(left);
     const ceiledTop = Math.ceil(top);
     return {
@@ -40,7 +72,7 @@ const makeRect = ({ width, height }, { left, top }) => {
  * @param {Position} position
  * @return {Position} flipped position
  */
-const flipHorizontal = position => {
+const flipHorizontal = (position: PositionEnum) => {
     switch (position) {
         case Position.TOP_LEFT:
             return Position.BOTTOM_LEFT;
@@ -63,7 +95,7 @@ const flipHorizontal = position => {
  * @param {Position} position
  * @return {Boolean}
  */
-const isAlignedOnTop = position => {
+const isAlignedOnTop = (position: PositionEnum) => {
     switch (position) {
         case Position.TOP_LEFT:
         case Position.TOP:
@@ -79,7 +111,7 @@ const isAlignedOnTop = position => {
  * @param {Position} position
  * @return {Boolean}
  */
-const isAlignedHorizontal = position => {
+const isAlignedHorizontal = (position: PositionEnum) => {
     switch (position) {
         case Position.LEFT:
         case Position.RIGHT:
@@ -96,7 +128,7 @@ const isAlignedHorizontal = position => {
  * @param {Number} viewportOffset
  * @return {Boolean}
  */
-const getFitsOnBottom = (rect, viewport, viewportOffset) => {
+const getFitsOnBottom = (rect: DOMRect, viewport: Dimensions, viewportOffset: number) => {
     return rect.bottom < viewport.height - viewportOffset;
 };
 
@@ -106,7 +138,7 @@ const getFitsOnBottom = (rect, viewport, viewportOffset) => {
  * @param {Number} viewportOffset
  * @return {Boolean}
  */
-const getFitsOnTop = (rect, viewportOffset) => {
+const getFitsOnTop = (rect: DOMRect, viewportOffset: number) => {
     return rect.top > viewportOffset;
 };
 
@@ -117,7 +149,7 @@ const getFitsOnTop = (rect, viewportOffset) => {
  * @param {Number} viewportOffset
  * @return {Boolean}
  */
-const getFitsOnRight = (rect, viewport, viewportOffset) => {
+const getFitsOnRight = (rect: DOMRect, viewport: Dimensions, viewportOffset: number) => {
     return rect.right < viewport.width - viewportOffset;
 };
 
@@ -127,7 +159,7 @@ const getFitsOnRight = (rect, viewport, viewportOffset) => {
  * @param {Number} viewportOffset
  * @return {Boolean}
  */
-const getFitsOnLeft = (rect, viewportOffset) => {
+const getFitsOnLeft = (rect: DOMRect, viewportOffset: number) => {
     return rect.left > viewportOffset;
 };
 
@@ -140,7 +172,17 @@ const getFitsOnLeft = (rect, viewportOffset) => {
  * @param {Number} targetCenter - center of the target.
  * @return {String} transform origin
  */
-const getTransformOrigin = ({ rect, position, dimensions, targetCenter }) => {
+const getTransformOrigin = ({
+    rect,
+    position,
+    dimensions,
+    targetCenter,
+}: {
+    rect: DOMRect,
+    position: PositionEnum,
+    dimensions: Dimensions,
+    targetCenter: number,
+}) => {
     const centerY = Math.round(targetCenter - rect.top);
 
     if (position === Position.LEFT) {
@@ -180,6 +222,13 @@ export default function getFittedPosition({
     targetOffset,
     viewport,
     viewportOffset = 8,
+}: {
+    position: PositionEnum,
+    dimensions: Dimensions,
+    targetRect: DOMRect,
+    targetOffset: number,
+    viewport: Dimensions,
+    viewportOffset: number,
 }) {
     const { rect, position: finalPosition } = getPosition({
         position,

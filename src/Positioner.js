@@ -1,5 +1,7 @@
-import React from "react";
-import getPosition, { Position } from "./getPosition";
+// @flow
+
+import * as React from "react";
+import getPosition, { Position, type PositionEnum } from "./getPosition";
 
 const defaultProps = {
     bodyOffset: 6,
@@ -49,17 +51,20 @@ export function usePositionedStyle(
     const latestAnimationFrame = React.useRef(null);
     const targetRef = React.useRef(null);
     const positionedRef = React.useRef(null);
+
     const [style, setStyle] = React.useState(defaultStyle);
 
     const update = () => {
         if (!targetRef.current || !positionedRef.current) {
             setStyle(defaultStyle);
         }
+
         const nextStyle = getStyle(targetRef, positionedRef, {
             position,
             targetOffset,
             bodyOffset,
         });
+
         setStyle(nextStyle);
 
         latestAnimationFrame.current = requestAnimationFrame(() => {
@@ -80,7 +85,42 @@ export function usePositionedStyle(
     return { style, targetRef, positionedRef };
 }
 
-function Positioner(props) {
+type Props = {
+    /**
+     * The position of the element. Can be one of the following: top, top-left, top-right
+     * bottom, bottom-left, bottom-right, left, or right.
+     */
+    position: PositionEnum,
+
+    /**
+     * The distance from the target container in pixels.
+     */
+    targetOffset: number,
+
+    /**
+     * Distance from the edge of the screen.
+     */
+    bodyOffset: number,
+
+    /**
+     * Tell the positioner if the element is shown or not.
+     * Great when you want to use with a tooltip or some other
+     * popup container.
+     */
+    isShown: boolean,
+
+    /**
+     * The root element to mount the positioned container to.
+     */
+    children: React.Element<any>,
+
+    /**
+     * The content of the positioned container.
+     */
+    content: React.Element<any>,
+};
+
+function Positioner(props: Props) {
     const { style, targetRef, positionedRef } = usePositionedStyle(
         {
             position: props.position,
