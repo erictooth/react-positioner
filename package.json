@@ -1,6 +1,6 @@
 {
   "name": "react-positioner",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "dist/Positioner.cjs.js",
   "module": "dist/Positioner.es.js",
@@ -55,6 +55,6 @@
     "rollup-plugin-node-resolve": "^3.4.0"
   },
   "peerDependencies": {
-    "react": "16.8.0-alpha.1"
+    "react": "^16.8.0"
   }
 }
