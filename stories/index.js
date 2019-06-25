@@ -2,7 +2,7 @@ import React from "react";
 
 import { storiesOf } from "@storybook/react";
 
-import Positioner from "../src/Positioner.js";
+import Positioner from "../src/index.js";
 
 const popoverContent = (
     <span>

@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from "react";
+import { Portal } from "reakit/Portal";
 import getPosition, { Position, type PositionEnum } from "./getPosition";
 
 const defaultProps = {
@@ -133,9 +134,9 @@ function Positioner(props: Props) {
     return (
         <>
             {React.cloneElement(props.children, { ref: targetRef })}
-            {props.isShown
-                ? React.cloneElement(props.content, { style, ref: positionedRef })
-                : null}
+            {props.isShown ? (
+                <Portal>{React.cloneElement(props.content, { style, ref: positionedRef })}</Portal>
+            ) : null}
         </>
     );
 }
