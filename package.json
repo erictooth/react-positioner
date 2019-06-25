@@ -1,64 +1,73 @@
 {
-  "name": "react-positioner",
-  "version": "1.0.2",
-  "description": "",
-  "main": "dist/Positioner.cjs.js",
-  "module": "dist/Positioner.es.js",
-  "keywords": [
-    "positioning",
-    "tooltip",
-    "popup",
-    "popover"
-  ],
-  "sideEffects": false,
-  "scripts": {
-    "build": "rollup -c rollup.config.js",
-    "storybook": "start-storybook"
-  },
-  "files": [
-    "dist"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://erictooth@github.com/erictooth/react-positioner.git"
-  },
-  "author": "Eric Mantooth",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/erictooth/react-positioner/issues"
-  },
-  "homepage": "https://github.com/erictooth/react-positioner#readme",
-  "devDependencies": {
-    "@babel/core": "^7.1.0",
-    "@babel/plugin-proposal-class-properties": "^7.1.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
-    "@babel/preset-env": "^7.1.0",
-    "@babel/preset-flow": "^7.0.0",
-    "@babel/preset-react": "^7.0.0",
-    "@storybook/react": "^5.1.9",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-eslint": "^9.0.0",
-    "babel-loader": "^8.0.6",
-    "eslint": "^5.6.0",
-    "eslint-config-prettier": "^3.0.1",
-    "eslint-plugin-flowtype": "^2.50.1",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jest": "^21.22.0",
-    "eslint-plugin-prettier": "^2.6.2",
-    "eslint-plugin-react": "^7.11.1",
-    "flow-bin": "^0.93.0",
-    "flow-copy-source": "^2.0.2",
-    "flow-coverage-report": "^0.6.0",
-    "prettier": "^1.14.3",
-    "react": "^16.8.2",
-    "react-dom": "^16.8.6",
-    "rollup": "^0.66.1",
-    "rollup-plugin-babel": "^4.0.3",
-    "rollup-plugin-commonjs": "^9.1.8",
-    "rollup-plugin-json": "^3.1.0",
-    "rollup-plugin-node-resolve": "^3.4.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0"
-  }
+    "name": "react-positioner",
+    "version": "1.0.2",
+    "description": "",
+    "keywords": [
+        "positioning",
+        "tooltip",
+        "popup",
+        "popover"
+    ],
+    "sideEffects": false,
+    "scripts": {
+        "build": "pack build",
+        "storybook": "start-storybook"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://erictooth@github.com/erictooth/react-positioner.git"
+    },
+    "author": "Eric Mantooth",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/erictooth/react-positioner/issues"
+    },
+    "homepage": "https://github.com/erictooth/react-positioner#readme",
+    "devDependencies": {
+        "@babel/preset-flow": "^7.0.0",
+        "@babel/preset-react": "^7.0.0",
+        "@erictooth/eslint-config": "^1.0.1",
+        "@erictooth/prettier-config": "^2.0.0",
+        "@pika/pack": "^0.3.7",
+        "@pika/plugin-build-umd": "^0.4.0",
+        "@pika/plugin-build-web": "^0.4.0",
+        "@pika/plugin-standard-pkg": "^0.4.0",
+        "@storybook/react": "^5.1.9",
+        "babel-loader": "^8.0.6",
+        "eslint": "^5.16.0",
+        "flow-bin": "^0.102.0",
+        "flow-copy-source": "^2.0.2",
+        "flow-coverage-report": "^0.6.0",
+        "prettier": "^1.14.3",
+        "react": "^16.8.0",
+        "react-dom": "^16.8.0"
+    },
+    "peerDependencies": {
+        "react": "^16.8.0",
+        "react-dom": "^16.8.0"
+    },
+    "@pika/pack": {
+        "pipeline": [
+            [
+                "@pika/plugin-standard-pkg"
+            ],
+            [
+                "@pika/plugin-build-web"
+            ],
+            [
+                "@pika/plugin-build-umd",
+                {
+                    "name": "ReactPositioner"
+                }
+            ]
+        ]
+    },
+    "eslintConfig": {
+        "extends": [
+            "@erictooth/eslint-config",
+            "@erictooth/eslint-config/react",
+            "@erictooth/eslint-config/flowtype"
+        ]
+    },
+    "prettier": "@erictooth/prettier-config"
 }
