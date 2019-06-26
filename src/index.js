@@ -133,9 +133,24 @@ function Positioner(props: Props) {
 
     return (
         <>
-            {React.cloneElement(props.children, { ref: targetRef })}
+            {React.cloneElement(props.children, {
+                ref: (node) => {
+                    targetRef.current = node;
+                    const { ref } = props.children;
+                    if (typeof ref === "function") {
+                        ref(node);
+                    } else if (typeof ref === "object" && ref.hasOwnProperty("current")) {
+                        ref.current = node;
+                    }
+                },
+            })}
             {props.isShown ? (
-                <Portal>{React.cloneElement(props.content, { style, ref: positionedRef })}</Portal>
+                <Portal>
+                    {React.cloneElement(props.content, {
+                        style,
+                        ref: positionedRef,
+                    })}
+                </Portal>
             ) : null}
         </>
     );
