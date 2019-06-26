@@ -1,6 +1,6 @@
 {
     "name": "react-positioner",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "Position an element next to a target.",
     "keywords": [
         "positioning",
