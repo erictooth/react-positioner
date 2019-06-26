@@ -139,7 +139,7 @@ function Positioner(props: Props) {
                     const { ref } = props.children;
                     if (typeof ref === "function") {
                         ref(node);
-                    } else if (typeof ref === "object" && ref.hasOwnProperty("current")) {
+                    } else if (ref && typeof ref === "object" && ref.hasOwnProperty("current")) {
                         ref.current = node;
                     }
                 },
