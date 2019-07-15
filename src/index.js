@@ -2,6 +2,8 @@
 
 import * as React from "react";
 import { Portal } from "reakit/Portal";
+import { mergeRefs } from "reakit-utils/mergeRefs";
+
 import getPosition, { Position, type PositionEnum } from "./getPosition";
 
 const defaultProps = {
@@ -134,21 +136,13 @@ function Positioner(props: Props) {
     return (
         <>
             {React.cloneElement(props.children, {
-                ref: (node) => {
-                    targetRef.current = node;
-                    const { ref } = props.children;
-                    if (typeof ref === "function") {
-                        ref(node);
-                    } else if (ref && typeof ref === "object" && ref.hasOwnProperty("current")) {
-                        ref.current = node;
-                    }
-                },
+                ref: mergeRefs(targetRef, props.children.ref),
             })}
             {props.isShown ? (
                 <Portal>
                     {React.cloneElement(props.content, {
                         style,
-                        ref: positionedRef,
+                        ref: mergeRefs(positionedRef, props.content.ref),
                     })}
                 </Portal>
             ) : null}
