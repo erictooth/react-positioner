@@ -48,9 +48,13 @@ const getStyle = (targetRef, positionedRef, { position, targetOffset, bodyOffset
 };
 
 export function usePositionedStyle(
-    { position, targetOffset, bodyOffset } = defaultProps,
+    { position, targetOffset, bodyOffset, isShown } = defaultProps,
     dependencies = []
 ) {
+    if (!isShown) {
+        return {};
+    }
+
     const latestAnimationFrame = React.useRef(null);
     const targetRef = React.useRef(null);
     const positionedRef = React.useRef(null);
@@ -129,8 +133,8 @@ function Positioner(props: Props) {
             position: props.position,
             targetOffset: props.targetOffset,
             bodyOffset: props.bodyOffset,
-        },
-        [props.isShown]
+            isShown: props.isShown
+        }
     );
 
     return (
