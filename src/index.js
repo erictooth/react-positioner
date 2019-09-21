@@ -47,10 +47,7 @@ const getStyle = (targetRef, positionedRef, { position, targetOffset, bodyOffset
     };
 };
 
-export function usePositionedStyle(
-    { position, isShown, targetOffset, bodyOffset } = defaultProps,
-    dependencies = []
-) {
+export function usePositionedStyle({ position, targetOffset, bodyOffset } = defaultProps, isShown: boolean) {
     if (!isShown) {
         return null;
     }
@@ -87,7 +84,7 @@ export function usePositionedStyle(
                 cancelAnimationFrame(latestAnimationFrame.current);
             }
         };
-    }, [position, targetOffset, bodyOffset, ...dependencies]);
+    }, [position, targetOffset, bodyOffset, isShown]);
 
     return { style, targetRef, positionedRef };
 }
@@ -131,10 +128,10 @@ function Positioner(props: Props) {
     const result = usePositionedStyle(
         {
             position: props.position,
-            isShown: props.isShown,
             targetOffset: props.targetOffset,
             bodyOffset: props.bodyOffset,
-        }
+        },
+        props.isShown
     );
 
     if (result === null) {
